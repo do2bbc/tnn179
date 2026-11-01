@@ -830,8 +830,11 @@ getide(WORD *laenge, char *(*inbuf), char *outbuf)
   if ((i == L2CALEN) && (n > 0) && (*p != ' '))
     return(ERRORS);
 
+  /* Relaxed callsign validation also accepts ordinary aliases. */
+#ifndef DISABLECALLCHECK
   if (valcal(ident) == YES)
     return(ERRORS);
+#endif
 
   memcpy(outbuf, ident, L2CALEN);
 

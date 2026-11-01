@@ -1167,7 +1167,8 @@ hstcon(char direction)
   hstusr->noacti = ininat;
 
 #ifdef HOSTMYCALL
-  cpyid(hstusr->call, hostuserid);
+  if (direction)
+    cpyid(hstusr->call, hostuserid);
 #endif /* HOSTMYCAL */
 
   resptc(g_uid(hstusr, HOST_USER));
