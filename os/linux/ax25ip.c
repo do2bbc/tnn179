@@ -1861,7 +1861,7 @@ void ax25ip_send(void)
     {
       /* Versuchen, jetzt eine IP-Adresse zu bestimmen */
       if ((hstent = gethostbyname((char*)rt->hostname)) != NULL)
-         memcpy((unsigned char*)&rt->hostname, (unsigned char *)&hstent->h_addr_list[0][0], 4);
+         memcpy((unsigned char*)&rt->ip_addr, (unsigned char *)&hstent->h_addr_list[0][0], 4);
     }
 
     /* Checksumme anhaengen */
