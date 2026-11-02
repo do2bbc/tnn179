@@ -98,10 +98,12 @@ msgclean:
 msgdist:
 		cp --parents $(MSGFILES) $(DISTDIR)
 
-msginstall:
+msginstall:	$(BIN)/msg $(BIN)/msy
 		echo $@
+		install -m 0700 -d $(TNNUSEREXE) $(TNNSYSEXE) $(TNNMSG)
 		install -m 0700 $(BIN)/msg $(TNNUSEREXE)msg
 		install -m 0700 $(BIN)/msy $(TNNSYSEXE)msy
+		install -m 0600 $(MSGMSY)/msg.usr $(MSGMSY)/msg.sys $(TNNMSG)
 #
 else
 #

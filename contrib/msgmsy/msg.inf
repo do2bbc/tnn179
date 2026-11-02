@@ -1,4 +1,11 @@
 Hallo Sysop's,
+Unter Linux im TNN-Hauptverzeichnis der Quellen:
+  make msg msy
+  sudo make msginstall
+Dies installiert MSG, MSY und die Hilfedateien msg.usr und msg.sys
+in die konfigurierten TNN-Verzeichnisse. Ein Neustart ist nicht noetig.
+
+Die folgenden Angaben zu .exe beziehen sich auf DOS.
 das Paket sollte folgende Dateien beinhalten.
 
 - msg_lin.c  das Programm. MUSS als msg.exe. TNN verlangt .exe!!!! 
