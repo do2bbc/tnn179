@@ -1,12 +1,5 @@
 # Makefile - tnn32
 #
-# Current MinGW-w64 build (use a separate source copy, not Linux objects):
-#   make -f tnn32.mak all PREFIX=i686-w64-mingw32-
-# No patched SDK headers or "hardpatch" target are needed.
-# The executable targets Win32 5.1 and links compiler runtimes statically.
-#
-# Historical build notes below:
-#
 # Die .dsw Datei von VC wurde mit dsw2mak aus dem MinGW Paket uebersetzt
 # und etwas angepasst. Folgende Configurationen koennen verwendet werden:
 #  - Linux mit MinGW runtime
@@ -36,7 +29,7 @@
 #
 #
 # EXPERIMENTELL: Die w32api Header muessen nicht mehr gepatcht
-# werden, wenn vor dem Compilieren folgendes ausgefï¿½hrt wird:
+# werden, wenn vor dem Compilieren folgendes ausgeführt wird:
 # 
 #   make -f tnn32.mak hardpatch
 #   
@@ -123,12 +116,11 @@ endif
 CXXFLAGS=$(CFLAGS)
 LD=$(CXX) $(CXXFLAGS)
 LDFLAGS=
-LDFLAGS+=-static -Wl,--subsystem,console:5.01
+LDFLAGS+=-Wl,--subsystem,console
 
 
 # Include Dateien
-CFLAGS+=-Iinclude -Ios/win32 -Ios/linux -Isrc
-CFLAGS+=-D_WIN32_WINNT=0x0501 -DWINVER=0x0501 -DLOOPBACK
+CFLAGS+=-Iinclude -Ios/linux -Ios/win32 -Isrc
 # vom DSW -> MAKEFILE Uebersetzer
 CFLAGS+=-fexceptions -W
 #wozu? CFLAGS+=-DWIN32 -D_CONSOLE -D_MBCS 
@@ -156,7 +148,7 @@ TARGET=$(BIN)/tnn32.exe
 all: tnn contrib
 clean: cleantnn cleancontrib
 tnn: $(TARGET)
-contrib: $(BIN)/help.exe $(BIN)/msg.exe $(BIN)/msy.exe $(BIN)/top.exe
+contrib: $(BIN)/help.exe $(BIN)/msg.exe $(BIN)/msy.exe $(BIN)/pfhadd.exe $(BIN)/top.exe
 
 
 %.o: %.c
@@ -170,7 +162,6 @@ RESSOURCENDATEIEN= \
 	os/win32/tnn32/tnn32.rc
 
 WIN32= \
-	os/win32/diagnostics.c \
 	os/win32/sys/dirent32.c \
 	os/win32/sys/dirent32.h \
 	os/win32/sys/fnmatch.c \
@@ -228,7 +219,6 @@ SRC= \
 	src/l1tcpip.c \
 	src/l1httpd.c \
 	src/l1ipconv.c \
-	src/l1irc.c \
 	src/l1telnet.c \
 	src/l2dama.c \
 	src/l2misc.c \
@@ -346,3 +336,4 @@ hardpatch:
 	-find . \( -name '*.c' -o -name '*.h' \) -exec sed -ri 's/(^|[() *,;:])BYTE([() *,;:]|$$)/\1BYTEE\2/g' {} \;
 	-find . \( -name '*.c' -o -name '*.h' \) -exec sed -ri 's/(^|[() *,;:])WORD([() *,;:]|$$)/\1WORDD\2/g' {} \;
 	-find . \( -name '*.c' -o -name '*.h' \) -exec sed -ri 's/(^|[() *,;:])WORD([() *,;:]|$$)/\1WORDD\2/g' {} \;
+
