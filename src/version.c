@@ -75,7 +75,11 @@
 #endif
 #else
 #  ifdef __WIN32__
+#    ifdef DISABLECALLCHECK
+#    define __SYSTEM__                 " (Win32) (CB)"
+#    else
 #    define __SYSTEM__                 " (Win32) (Afu)"
+#    endif
 #  else
 #    ifdef __GO32__
 #      define __SYSTEM__               " (GO32) (Afu)"

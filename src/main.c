@@ -186,6 +186,9 @@ int main(int argc, char *argv[])
   char ext[MAXEXT];
 #endif
 
+#ifdef __WIN32__
+  win32_diagnostics_init();
+#endif
 #ifdef DEBUG_MODUS
   Debug_fp = xfopen("debug.log","wb");                 /* File oeffnen     */
 #endif
@@ -367,6 +370,9 @@ char *wowarich;
 /*----------------------------------------------------------------------*/
 static void main_loop(void)
 {
+#ifdef __WIN32__
+  win32_diagnostics_tick();
+#endif
   prof_start(PROF_SUM);
 
   PROFILE(PROF_L2,"l2",l2);
@@ -529,6 +535,9 @@ void quit_program(int exit_code)
         fclose(Debug_fp);
 #endif
     /* und tschuess.... */
+#ifdef __WIN32__
+    win32_diagnostics_exit(exit_code);
+#endif
     exit(exit_code);
   }
 }

@@ -84,7 +84,7 @@ void ccpirc(void)
 
     switch (ch)
     {
-      case 'P':                             /* Sysop will IRC-Port aéndern */
+      case 'P':                             /* Sysop will IRC-Port aï¿½ndern */
         if (!skipsp(&clicnt, &clipoi))
         {
           putmsg("Invalid Parameter\r");
@@ -2023,16 +2023,16 @@ printf("DEBUG: l1irc.c - IrcUserCommand()\n");
 
   if (*cp->nickname)
   {
-    strncpy(cp->name, cp->nickname, IRC_NAMESIZE);
+    strncpy(cp->name, cp->nickname, sizeof(cp->name) - 1);
   }
   else
   {
     // broken client: there are irc-clients which send 1. USER 2. NICK instead
     // of normal order 1. NICK 2. USER
-        strncpy(cp->name, user, IRC_NAMESIZE);
+        strncpy(cp->name, user, sizeof(cp->name) - 1);
   }
 
-  cp->name[IRC_NAMESIZE] = 0;
+  cp->name[sizeof(cp->name) - 1] = 0;
 
         if (isdigit(*mode & 0xff)) {
                 int i = atoi(mode);
